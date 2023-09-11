@@ -16,6 +16,5 @@ class Diamond:
 
             print(spaces + stars)
 
-size = 3
-diamond = Diamond(size)
+diamond = Diamond(3)
 diamond.draw()
