@@ -1,2 +1,1 @@
-Computer and Micorelectronics,FCIM,StudyField.SOFTWARE_ENGINEERING
-Vasiliev,Vasilii,vasea@mail.ru,FCIM,1,2021-10-12,2003-12-23
+Computer and Microelectronics,FCIM,StudyField.SOFTWARE_ENGINEERING
