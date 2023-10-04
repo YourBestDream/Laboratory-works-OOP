@@ -1,0 +1,25 @@
+[04/10/2023 21:56:40] Program started.
+[04/10/2023 21:56:43] User chose Faculty Operations.
+[04/10/2023 21:56:46] User chose '1'.
+[04/10/2023 22:03:12] Program started.
+[04/10/2023 22:03:28] User chose Faculty Operations.
+[04/10/2023 22:05:22] Program started.
+[04/10/2023 22:53:42] Program started.
+[04/10/2023 22:53:44] User chose Faculty Operations.
+[04/10/2023 22:53:49] User chose '2'.
+[04/10/2023 23:06:09] Program started.
+[04/10/2023 23:06:12] User chose Faculty Operations.
+[04/10/2023 23:06:14] User chose '2'.
+[04/10/2023 23:06:20] User chose '5'.
+[04/10/2023 23:06:24] Currently enrolled students in faculty 'Computer and Microelectronics':
+[04/10/2023 23:06:24] └─Victor Borisov (qwer@mail.ru)
+[04/10/2023 23:06:24] └─Grigorii Hodunkov (qwerty@mail.ru)
+[04/10/2023 23:06:31] User chose '9'.
+[04/10/2023 23:06:31] Program ended.
+
+[04/10/2023 23:07:06] Program started.
+[04/10/2023 23:07:15] Invalid choice.
+[04/10/2023 23:07:16] User chose Faculty Operations.
+[04/10/2023 23:07:24] User chose '5'.
+[04/10/2023 23:07:26] Currently enrolled students in faculty 'Computer and Microelectronics':
+[04/10/2023 23:07:26] └─Victor Borisov (qwer@mail.ru)

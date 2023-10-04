@@ -9,19 +9,19 @@ class FileManager:
         self.students_file = "students.txt"
 
     def save_faculties(self, faculties):
-        with open(self.faculties_file, "w") as file:
+        with open(self.faculties_file, "w", encoding="utf-8") as file:
             for faculty in faculties:
                 file.write(faculty.to_string() + "\n")
 
     def save_students(self, students):
-        with open(self.students_file, "w") as file:
+        with open(self.students_file, "w", encoding="utf-8") as file:
             for student in students:
                 file.write(student.to_string() + "\n")
 
     def load_faculties(self):
         faculties = []
         try:
-            with open(self.faculties_file, "r") as file:
+            with open(self.faculties_file, "r", encoding="utf-8") as file:
                 lines = file.read().splitlines()
                 for line in lines:
                     faculty = Faculty.from_string(line)
