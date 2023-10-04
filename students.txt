@@ -1,2 +1,2 @@
-Victor,Borisov,qwer@mail.ru,1,FCIM,2022-12-23,2003-12-23,False
-Ion,Popescu,ghji@mail.ru,2,FCIM,2018-12-23,1998-12-23,True
+Victor,Bogdanov,qwrty@mail.ru,2,FCIM,2022-12-23,2003-12-23,False
+Victor,Bogd,qwrt@mail.ru,2,FCIM,2022-12-23,2003-12-23,False

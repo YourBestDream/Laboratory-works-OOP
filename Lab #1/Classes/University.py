@@ -9,6 +9,7 @@ class University:
         self.file_manager = FileManager()
         self.faculties = self.file_manager.load_faculties()
         self.students = self.file_manager.load_students()
+        # self.graduates = [student for student in self.students if student.graduate == "True"]
         self.logger = Logger()
         for faculty in self.faculties:
             for student in self.students:
@@ -68,8 +69,8 @@ class University:
                 for faculty in self.faculties:
                     if faculty.abbreviation == student.facultyAbbreviation:
                         faculty.add_student(student)
+                        self.students.append(student)  # Add student to the list of all students
                         print(f"Student '{student.firstName} {student.lastName}' assigned to faculty '{student.facultyAbbreviation}'.")
-                
 
     def graduate_student_from_faculty(self):
         email = input("Enter student email: ")
@@ -82,7 +83,15 @@ class University:
             self.logger.log(f"Student '{student.firstName} {student.lastName} {student.email} ID = {student.idnum} {student.enrollmentDate} {student.dateOfBirth}' graduated from faculty '{faculty.name}'.")
 
     def batch_graduation(self):
-        pass
+        with open("graduation.txt", "r", encoding="utf-8") as file:
+            lines = file.read().splitlines()
+            for line in lines:
+                student = Student.from_string(line)
+                for faculty in self.faculties:
+                    if faculty.abbreviation == student.facultyAbbreviation:
+                        faculty.graduate_student(student)
+                        self.file_manager.save_students(self.students)
+                        print(f"Student '{student.firstName} {student.lastName}' graduated from faculty '{student.facultyAbbreviation}'.")
 
     def display_enrolled_students(self):
         faculty_abbreviation = input("Enter faculty abbreviation: ")
