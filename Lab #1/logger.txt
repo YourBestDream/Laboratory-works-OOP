@@ -1,0 +1,4 @@
+[16/10/2023 13:19:23] Program started.
+[16/10/2023 13:19:31] User chose Faculty Operations.
+[16/10/2023 13:19:38] User chose '6'.
+[16/10/2023 13:19:40] Abbreviation 'FCIM':

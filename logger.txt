@@ -1,133 +1,216 @@
-[04/10/2023 21:56:40] Program started.
-[04/10/2023 21:56:43] User chose Faculty Operations.
-[04/10/2023 21:56:46] User chose '1'.
-[04/10/2023 22:03:12] Program started.
-[04/10/2023 22:03:28] User chose Faculty Operations.
-[04/10/2023 22:05:22] Program started.
-[04/10/2023 22:53:42] Program started.
-[04/10/2023 22:53:44] User chose Faculty Operations.
-[04/10/2023 22:53:49] User chose '2'.
-[04/10/2023 23:06:09] Program started.
-[04/10/2023 23:06:12] User chose Faculty Operations.
-[04/10/2023 23:06:14] User chose '2'.
-[04/10/2023 23:06:20] User chose '5'.
-[04/10/2023 23:06:24] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:06:24] └─Victor Borisov (qwer@mail.ru)
-[04/10/2023 23:06:24] └─Grigorii Hodunkov (qwerty@mail.ru)
-[04/10/2023 23:06:31] User chose '9'.
-[04/10/2023 23:06:31] Program ended.
+[16/10/2023 13:24:19] Program started.
+[16/10/2023 13:26:02] Program ended.
 
-[04/10/2023 23:07:06] Program started.
-[04/10/2023 23:07:15] Invalid choice.
-[04/10/2023 23:07:16] User chose Faculty Operations.
-[04/10/2023 23:07:24] User chose '5'.
-[04/10/2023 23:07:26] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:07:26] └─Victor Borisov (qwer@mail.ru)
-[04/10/2023 23:18:18] Program started.
-[04/10/2023 23:18:22] User chose Faculty Operations.
-[04/10/2023 23:18:26] User chose '2'.
-[04/10/2023 23:18:32] User chose '9'.
-[04/10/2023 23:18:32] Program ended.
+[16/10/2023 13:28:02] Program started.
+[16/10/2023 13:28:07] User chose Faculty Operations.
+[16/10/2023 13:28:10] User chose '3'.
+[16/10/2023 13:28:22] User chose '5'.
+[16/10/2023 13:28:23] User chose Faculty Operations.
+[16/10/2023 13:28:24] User chose '1'.
+[16/10/2023 13:28:40] Student 'FGHJK FGHJK er@mail.ru ID = 1 2002-12-22 2002-12-23' assigned to faculty 'Vetirinary'.
+[16/10/2023 13:28:48] User chose '5'.
+[16/10/2023 13:28:50] Currently enrolled students in faculty 'Vetirinary':
+[16/10/2023 13:28:50] └─FGHJK FGHJK (er@mail.ru)
+[16/10/2023 13:29:04] User chose '5'.
+[16/10/2023 13:29:06] Currently enrolled students in faculty 'Computer and Microelectronics':
+[16/10/2023 13:29:06] └─Victor Bogdanov (qwrty@mail.ru)
+[16/10/2023 13:29:06] └─Victor Bogd (qwrt@mail.ru)
+[16/10/2023 13:29:24] User chose '4'.
+[16/10/2023 13:29:51] User chose '9'.
+[16/10/2023 13:29:51] Program ended.
 
-[04/10/2023 23:23:46] Program started.
-[04/10/2023 23:23:48] User chose Faculty Operations.
-[04/10/2023 23:23:49] User chose '1'.
-[04/10/2023 23:24:11] Faculty 'Computer and Microelectronics' created successfully.
-[04/10/2023 23:24:18] User chose '1'.
-[04/10/2023 23:24:37] Faculty 'Vetirinary' created successfully.
-[04/10/2023 23:24:41] User chose '5'.
-[04/10/2023 23:24:42] User chose Faculty Operations.
-[04/10/2023 23:24:45] User chose '2'.
-[04/10/2023 23:24:51] User chose '1'.
-[04/10/2023 23:25:15] Student 'Victor Bogdanov qwrty@mail.ru ID = 2 2022-12-23 2003-12-23' assigned to faculty 'Computer and Microelectronics'.
-[04/10/2023 23:25:22] User chose '5'.
-[04/10/2023 23:25:24] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:25:24] └─Grigorii Hodunkov (qwerty@mail.ru)
-[04/10/2023 23:25:24] └─Victor Bogdanov (qwrty@mail.ru)
-[04/10/2023 23:25:29] User chose '9'.
-[04/10/2023 23:25:29] Program ended.
+[16/10/2023 13:29:53] Program started.
+[16/10/2023 13:29:54] User chose Faculty Operations.
+[16/10/2023 13:29:57] User chose '5'.
+[16/10/2023 13:29:58] User chose Faculty Operations.
+[16/10/2023 13:30:00] User chose '4'.
+[16/10/2023 13:30:10] User chose '9'.
+[16/10/2023 13:30:10] Program ended.
 
-[04/10/2023 23:28:00] Program started.
-[04/10/2023 23:28:02] User chose Faculty Operations.
-[04/10/2023 23:28:06] User chose '2'.
-[04/10/2023 23:28:45] Program started.
-[04/10/2023 23:28:46] User chose Faculty Operations.
-[04/10/2023 23:28:48] User chose '2'.
-[04/10/2023 23:29:15] Program started.
-[04/10/2023 23:29:16] User chose Faculty Operations.
-[04/10/2023 23:29:17] User chose '2'.
-[04/10/2023 23:30:13] Program started.
-[04/10/2023 23:30:14] User chose Faculty Operations.
-[04/10/2023 23:30:15] User chose '2'.
-[04/10/2023 23:30:43] User chose '2'.
-[04/10/2023 23:30:49] Program started.
-[04/10/2023 23:30:50] User chose Faculty Operations.
-[04/10/2023 23:30:50] User chose '2'.
-[04/10/2023 23:31:10] User chose '2'.
-[04/10/2023 23:31:13] Program started.
-[04/10/2023 23:31:14] User chose Faculty Operations.
-[04/10/2023 23:31:14] User chose '2'.
-[04/10/2023 23:31:26] User chose '5'.
-[04/10/2023 23:31:29] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:31:29] └─Victor Bogdanov (qwrty@mail.ru)
-[04/10/2023 23:31:29] └─Victor Bogd (qwrt@mail.ru)
-[04/10/2023 23:31:56] User chose '9'.
-[04/10/2023 23:31:56] Program ended.
+[16/10/2023 13:30:12] Program started.
+[16/10/2023 13:30:13] User chose Faculty Operations.
+[16/10/2023 13:30:16] User chose '5'.
+[16/10/2023 13:30:17] User chose Faculty Operations.
+[16/10/2023 13:30:20] User chose '6'.
+[16/10/2023 13:30:23] Abbreviation 'FCIM':
+[16/10/2023 13:30:23] Faculty 'Computer and Microelectronics':
+[16/10/2023 13:30:23] └─Victor Victorovici (feraran@mail.ru)
+[16/10/2023 13:30:23] └─FGHJK FGHJK (er@mail.ru)
+[16/10/2023 13:30:42] User chose '5'.
+[16/10/2023 13:30:44] Currently enrolled students in faculty 'Computer and Microelectronics':
+[16/10/2023 13:30:44] └─Victor Bogdanov (qwrty@mail.ru)
+[16/10/2023 13:30:44] └─Victor Bogd (qwrt@mail.ru)
+[16/10/2023 13:31:36] User chose '9'.
+[16/10/2023 13:31:36] Program ended.
 
-[04/10/2023 23:31:58] Program started.
-[04/10/2023 23:32:00] User chose Faculty Operations.
-[04/10/2023 23:32:01] User chose '5'.
-[04/10/2023 23:32:02] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:32:02] └─Victor Bogdanov (qwrty@mail.ru)
-[04/10/2023 23:32:24] Program started.
-[04/10/2023 23:32:25] User chose Faculty Operations.
-[04/10/2023 23:32:27] User chose '2'.
-[04/10/2023 23:32:29] User chose '5'.
-[04/10/2023 23:32:31] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:32:31] └─Victor Bogdanov (qwrty@mail.ru)
-[04/10/2023 23:32:31] └─Victor Bogd (qwrt@mail.ru)
-[04/10/2023 23:32:33] User chose '9'.
-[04/10/2023 23:32:33] Program ended.
+[16/10/2023 13:32:31] Program started.
+[16/10/2023 13:32:34] User chose Faculty Operations.
+[16/10/2023 13:32:37] User chose '4'.
+[16/10/2023 13:32:43] User chose '9'.
+[16/10/2023 13:32:43] Program ended.
 
-[04/10/2023 23:32:36] Program started.
-[04/10/2023 23:32:37] User chose Faculty Operations.
-[04/10/2023 23:32:40] User chose '5'.
-[04/10/2023 23:32:42] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:32:42] └─Victor Bogdanov (qwrty@mail.ru)
-[04/10/2023 23:32:42] └─Victor Bogd (qwrt@mail.ru)
-[04/10/2023 23:32:56] Program started.
-[04/10/2023 23:32:57] User chose Faculty Operations.
-[04/10/2023 23:33:02] User chose '5'.
-[04/10/2023 23:33:05] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:33:05] └─Victor Bogdanov (qwrty@mail.ru)
-[04/10/2023 23:33:05] └─Victor Bogd (qwrt@mail.ru)
-[04/10/2023 23:33:26] Program started.
-[04/10/2023 23:33:28] User chose Faculty Operations.
-[04/10/2023 23:33:31] User chose '2'.
-[04/10/2023 23:33:35] User chose '5'.
-[04/10/2023 23:33:37] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:33:37] └─Victor Bogdanov (qwrty@mail.ru)
-[04/10/2023 23:33:40] User chose '9'.
-[04/10/2023 23:33:40] Program ended.
+[16/10/2023 13:32:46] Program started.
+[16/10/2023 13:32:48] User chose Faculty Operations.
+[16/10/2023 13:32:50] User chose '6'.
+[16/10/2023 13:32:55] Abbreviation 'FCIM':
+[16/10/2023 13:32:55] Faculty 'Computer and Microelectronics':
+[16/10/2023 13:32:55] └─Victor Victorovici (feraran@mail.ru)
+[16/10/2023 13:37:42] User chose '9'.
+[16/10/2023 13:37:42] Program ended.
 
-[04/10/2023 23:33:42] Program started.
-[04/10/2023 23:33:42] User chose Faculty Operations.
-[04/10/2023 23:33:44] User chose '5'.
-[04/10/2023 23:33:46] Currently enrolled students in faculty 'Computer and Microelectronics':
-[04/10/2023 23:33:46] └─Victor Bogdanov (qwrty@mail.ru)
-[04/10/2023 23:33:46] └─Victor Bogd (qwrt@mail.ru)
-[04/10/2023 23:35:56] Program started.
-[04/10/2023 23:35:58] User chose Faculty Operations.
-[04/10/2023 23:36:03] User chose '4'.
-[04/10/2023 23:36:48] Program started.
-[04/10/2023 23:36:49] User chose Faculty Operations.
-[04/10/2023 23:36:52] User chose '4'.
-[04/10/2023 23:37:59] Program started.
-[04/10/2023 23:38:00] User chose Faculty Operations.
-[04/10/2023 23:38:02] User chose '4'.
-[04/10/2023 23:39:58] Program started.
-[04/10/2023 23:39:59] User chose Faculty Operations.
-[04/10/2023 23:40:01] User chose '4'.
-[04/10/2023 23:43:03] Program started.
-[04/10/2023 23:43:05] User chose Faculty Operations.
-[04/10/2023 23:43:07] User chose '4'.
+[16/10/2023 17:09:41] Program started.
+[16/10/2023 17:09:43] User chose Faculty Operations.
+[16/10/2023 17:09:47] User chose '4'.
+[16/10/2023 17:10:12] User chose '9'.
+[16/10/2023 17:10:12] Program ended.
+
+[16/10/2023 17:11:49] Program started.
+[16/10/2023 17:11:51] User chose Faculty Operations.
+[16/10/2023 17:11:52] User chose '5'.
+[16/10/2023 17:11:53] User chose Faculty Operations.
+[16/10/2023 17:11:57] User chose '4'.
+[16/10/2023 17:12:00] User chose '9'.
+[16/10/2023 17:12:00] Program ended.
+
+[16/10/2023 17:29:43] Program started.
+[16/10/2023 17:29:48] User chose Faculty Operations.
+[16/10/2023 17:29:50] User chose '1'.
+[16/10/2023 17:30:16] Student 'Gusev Roman ararat@mail.ru ID = 1 2022-12-23 2002-12-23' assigned to faculty 'Computer and Microelectronics'.
+[16/10/2023 17:30:33] User chose '2'.
+[16/10/2023 17:30:55] User chose '4'.
+[16/10/2023 17:31:05] User chose '9'.
+[16/10/2023 17:31:05] Program ended.
+
+[16/10/2023 17:34:30] Program started.
+[16/10/2023 17:34:32] User chose Faculty Operations.
+[16/10/2023 17:34:35] User chose '3'.
+[16/10/2023 17:34:47] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:34:53] User chose '9'.
+[16/10/2023 17:34:53] Program ended.
+
+[16/10/2023 17:35:19] Program started.
+[16/10/2023 17:35:21] User chose Faculty Operations.
+[16/10/2023 17:35:27] User chose '3'.
+[16/10/2023 17:35:39] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:35:45] User chose '9'.
+[16/10/2023 17:35:45] Program ended.
+
+[16/10/2023 17:39:18] Program started.
+[16/10/2023 17:39:20] User chose Faculty Operations.
+[16/10/2023 17:39:23] User chose '5'.
+[16/10/2023 17:39:25] Currently enrolled students in faculty 'Computer and Microelectronics':
+[16/10/2023 17:39:25] └─Gusev Roman (ararat@mail.ru)
+[16/10/2023 17:39:25] └─Victor Bogd (qwrt@mail.ru)
+[16/10/2023 17:39:36] User chose '4'.
+[16/10/2023 17:39:57] User chose '9'.
+[16/10/2023 17:39:57] Program ended.
+
+[16/10/2023 17:40:49] Program started.
+[16/10/2023 17:40:51] User chose Faculty Operations.
+[16/10/2023 17:40:53] User chose '4'.
+[16/10/2023 17:41:01] User chose '9'.
+[16/10/2023 17:41:01] Program ended.
+
+[16/10/2023 17:43:10] Program started.
+[16/10/2023 17:43:12] User chose Faculty Operations.
+[16/10/2023 17:43:15] User chose '4'.
+[16/10/2023 17:43:15] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:43:17] User chose '9'.
+[16/10/2023 17:43:17] Program ended.
+
+[16/10/2023 17:44:01] Program started.
+[16/10/2023 17:44:03] User chose Faculty Operations.
+[16/10/2023 17:44:04] User chose '4'.
+[16/10/2023 17:44:04] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:44:06] User chose '9'.
+[16/10/2023 17:44:06] Program ended.
+
+[16/10/2023 17:45:24] Program started.
+[16/10/2023 17:45:25] User chose Faculty Operations.
+[16/10/2023 17:45:31] User chose '4'.
+[16/10/2023 17:45:31] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:47:27] User chose '9'.
+[16/10/2023 17:47:27] Program ended.
+
+[16/10/2023 17:47:38] Program started.
+[16/10/2023 17:47:39] User chose Faculty Operations.
+[16/10/2023 17:47:40] User chose '4'.
+[16/10/2023 17:47:40] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:49:13] User chose '9'.
+[16/10/2023 17:49:13] Program ended.
+
+[16/10/2023 17:49:14] Program started.
+[16/10/2023 17:49:16] User chose Faculty Operations.
+[16/10/2023 17:49:18] User chose '4'.
+[16/10/2023 17:49:18] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:49:49] User chose '9'.
+[16/10/2023 17:49:49] Program ended.
+
+[16/10/2023 17:49:49] Program started.
+[16/10/2023 17:49:50] User chose Faculty Operations.
+[16/10/2023 17:49:52] User chose '4'.
+[16/10/2023 17:49:52] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:50:34] User chose '9'.
+[16/10/2023 17:50:34] Program ended.
+
+[16/10/2023 17:50:35] Program started.
+[16/10/2023 17:50:37] User chose Faculty Operations.
+[16/10/2023 17:50:38] User chose '4'.
+[16/10/2023 17:50:38] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:51:39] User chose '9'.
+[16/10/2023 17:51:39] Program ended.
+
+[16/10/2023 17:51:40] Program started.
+[16/10/2023 17:51:41] User chose Faculty Operations.
+[16/10/2023 17:51:43] User chose '4'.
+[16/10/2023 17:51:43] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:51:50] User chose '9'.
+[16/10/2023 17:51:50] Program ended.
+
+[16/10/2023 17:55:49] Program started.
+[16/10/2023 17:55:50] User chose Faculty Operations.
+[16/10/2023 17:55:51] User chose '4'.
+[16/10/2023 17:55:51] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 17:57:50] User chose '9'.
+[16/10/2023 17:57:50] Program ended.
+
+[16/10/2023 17:57:56] Program started.
+[16/10/2023 17:57:59] User chose Faculty Operations.
+[16/10/2023 17:58:02] User chose '6'.
+[16/10/2023 17:58:12] Abbreviation 'FCIM':
+[16/10/2023 17:58:12] Faculty 'Computer and Microelectronics':
+[16/10/2023 17:58:12] └─Victor Bogdanov (qwrty@mail.ru)
+[16/10/2023 18:00:38] User chose '9'.
+[16/10/2023 18:00:38] Program ended.
+
+[16/10/2023 18:00:39] Program started.
+[16/10/2023 18:00:41] User chose Faculty Operations.
+[16/10/2023 18:00:44] User chose '4'.
+[16/10/2023 18:01:18] User chose '9'.
+[16/10/2023 18:01:18] Program ended.
+
+[16/10/2023 18:01:19] Program started.
+[16/10/2023 18:01:21] User chose Faculty Operations.
+[16/10/2023 18:01:22] User chose '4'.
+[16/10/2023 18:02:45] User chose '9'.
+[16/10/2023 18:02:45] Program ended.
+
+[16/10/2023 18:02:46] Program started.
+[16/10/2023 18:02:47] User chose Faculty Operations.
+[16/10/2023 18:02:49] User chose '4'.
+[16/10/2023 18:07:25] User chose '9'.
+[16/10/2023 18:07:25] Program ended.
+
+[16/10/2023 18:07:27] Program started.
+[16/10/2023 18:07:28] User chose Faculty Operations.
+[16/10/2023 18:07:32] User chose '4'.
+[16/10/2023 18:08:12] Program started.
+[16/10/2023 18:08:14] User chose Faculty Operations.
+[16/10/2023 18:08:16] User chose '4'.
+[16/10/2023 18:26:30] Program started.
+[16/10/2023 18:26:32] User chose Faculty Operations.
+[16/10/2023 18:26:32] User chose '4'.
+[16/10/2023 18:26:32] Student 'Victor Bogd qwrt@mail.ru ID = 2 2022-12-23 2003-12-23' graduated from faculty 'Computer and Microelectronics'.
+[16/10/2023 18:26:43] User chose '9'.
+[16/10/2023 18:26:43] Program ended.
+

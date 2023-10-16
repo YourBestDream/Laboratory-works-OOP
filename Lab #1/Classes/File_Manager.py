@@ -1,7 +1,7 @@
 from .Faculty import Faculty
 from .Student import Student
 
-#Saves won't work if you will delete info from files. You must delete both .txt in order to work with program as you pease from the very beginning.
+#Saves won't work if you will delete info from files. You must delete both .txt in order to work with program as you please from the very beginning.
 
 class FileManager:
     def __init__(self):

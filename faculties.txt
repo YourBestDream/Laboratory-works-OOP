@@ -1,2 +1,3 @@
 Computer and Microelectronics,FCIM,StudyField.SOFTWARE_ENGINEERING
 Vetirinary,FAV,StudyField.VETERINARY_MEDICINE
+Veterinary,FVA,StudyField.VETERINARY_MEDICINE

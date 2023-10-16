@@ -82,16 +82,35 @@ class University:
             print(f"Student '{student.firstName} {student.lastName}' graduated from faculty '{faculty.name}'.")
             self.logger.log(f"Student '{student.firstName} {student.lastName} {student.email} ID = {student.idnum} {student.enrollmentDate} {student.dateOfBirth}' graduated from faculty '{faculty.name}'.")
 
+    def student_match(self, student1, student2):
+        return (
+            student1.firstName == student2.firstName and
+            student1.lastName == student2.lastName and
+            student1.email == student2.email and
+            student1.idnum == student2.idnum and
+            student1.facultyAbbreviation == student2.facultyAbbreviation and
+            student1.enrollmentDate == student2.enrollmentDate and
+            student1.dateOfBirth == student2.dateOfBirth
+        )
+
     def batch_graduation(self):
         with open("graduation.txt", "r", encoding="utf-8") as file:
             lines = file.read().splitlines()
             for line in lines:
                 student = Student.from_string(line)
-                for faculty in self.faculties:
-                    if faculty.abbreviation == student.facultyAbbreviation:
-                        faculty.graduate_student(student)
-                        self.file_manager.save_students(self.students)
+                print(student.firstName, student.lastName)
+                
+                # Camparison of students by all fields except for the 'graduate' field
+                matching_students = [s for s in self.students if self.student_match(student, s)]
+                
+                if matching_students:
+                    faculty = self.find_faculty_by_abbreviation(student.facultyAbbreviation)
+                    if student and faculty:
+                        faculty.graduate_student(matching_students[0])  # Graduate the matching student
                         print(f"Student '{student.firstName} {student.lastName}' graduated from faculty '{student.facultyAbbreviation}'.")
+                        self.logger.log(f"Student '{student.firstName} {student.lastName} {student.email} ID = {student.idnum} {student.enrollmentDate} {student.dateOfBirth}' graduated from faculty '{faculty.name}'.")
+                else:
+                    print("Students whom you're trying to graduate are not enrolled in any faculty.")
 
     def display_enrolled_students(self):
         faculty_abbreviation = input("Enter faculty abbreviation: ")
@@ -130,6 +149,13 @@ class University:
             else:
                 print(f"\nStudent '{student.firstName} {student.lastName}' does not belong to faculty '{faculty.name}'.")
                 self.logger.log(f"Student '{student.firstName} {student.lastName} {student.email} ID = {student.idnum} {student.enrollmentDate} {student.dateOfBirth}' does not belong to faculty '{faculty.name}'.")
+
+    # def existing_student(self, stundent):
+    #     for student in self.students:
+    #         if student.email == email:
+    #             return True
+    #     return False
+
 
     def find_student_by_email(self, email):
         for student in self.students:
