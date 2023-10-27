@@ -1,0 +1,30 @@
+[1]: https://stackoverflow.com/questions/77344048/python-selenium-attributeerror-object-has-no-attribute ""
+[2]: https://stackoverflow.com/questions/11685936/why-am-i-getting-attributeerror-object-has-no-attribute ""
+[3]: https://rollbar.com/blog/python-attributeerror/ ""
+[4]: https://learnshareit.com/how-to-solve-attributeerror-nonetype-object-has-no-attribute-python/ ""
+[5]: https://stackoverflow.com/questions/46857179/inmemoryuploadedfile-object-has-no-attribute-get ""
+
+The error you are getting is an AttributeError, which means that you are trying to access an attribute that does not exist for the object. In this case, you are trying to access the attribute `files` of the object `folder_monitor`, which is an instance of the class `FolderMonitor`. However, you have not defined the attribute `files` in the `__init__` method of the class, so it does not exist when you create the object.
+
+To fix this error, you need to either define the attribute `files` in the `__init__` method of the class, or call the method `create_files` before you access the attribute `files`. For example, you can do either of these:
+
+- Define the attribute `files` in the `__init__` method:
+
+```python
+class FolderMonitor:
+    # Initializing the folder monitor object with folder path and snapshot time
+    def __init__(self, folder_path):
+        self.folder_path = folder_path
+        self.snapshot = time.time() # Setting the initial snapshot time to the current time
+        self.files = {} # Creating an empty dictionary to store file objects
+```
+
+- Call the method `create_files` before accessing the attribute `files`:
+
+```python
+folder_monitor = FolderMonitor("E:\programs\OOP Labs\Laboratory-works-OOP\control")
+folder_monitor.create_files() # Creating file objects from the folder contents
+folder_monitor.status() # Printing the status of each file
+```
+
+I hope this helps you understand and resolve the error. If you want to learn more about AttributeError and how to fix it, you can check out these web search results[^1^][1] or these question answering results[^2^][2].
