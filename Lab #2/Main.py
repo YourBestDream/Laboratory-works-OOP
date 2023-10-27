@@ -1,5 +1,6 @@
 import os
 import time
+import threading # Importing the threading module
 
 # Defining a class for files
 class File:
@@ -82,7 +83,11 @@ class FolderMonitor:
 
             if extension in [".png", ".jpg"]: # Checking if the file is an image file by its extension
                 size = f"{os.path.getsize(filepath)} bytes" # Getting the size of the file in bytes using os.path.getsize function 
-                file_object = ImageFile(name, extension, created, updated,size) # Creating an image file object with name,
+                file_object = ImageFile(name,
+                extension,
+                created,
+                updated,
+                size) # Creating an image file object with name,
 
 
             elif extension == ".txt": # Checking if the file is a text file by its extension 
@@ -138,6 +143,10 @@ class FolderMonitor:
         for filename in deleted_files: # Iterating over each filename in deleted files set
             print(f"{filename} - Deleted") # Printing that the file is deleted
 
+        if added_files or deleted_files: # Checking if there are any changes in files 
+            self.status() # Calling status method to print status of each file 
+            self.commit() # Calling commit method to update snapshot time 
+
     # Defining a method to run a scheduled detection program every 5 seconds and print any changes to the console
     def run_scheduler(self):
         while True: # Creating an infinite loop 
@@ -149,8 +158,10 @@ class FolderMonitor:
 folder_monitor = FolderMonitor("E:\programs\OOP Labs\Laboratory-works-OOP\control")
 folder_monitor.create_files() # Creating file objects from the folder contents
 folder_monitor.status() # Printing the status of each file
-# Creating an interactive command line for user input 
-# Inside the interactive loop
+
+# Creating a thread object for running scheduler as a separate thread
+scheduler_thread = threading.Thread(target=folder_monitor.run_scheduler) # Passing the run_scheduler method of the folder_monitor object as the target argument of the Thread constructor
+scheduler_thread.start() # Starting the thread by calling the start method of the thread object
 while True:
     command = input("> ")
     if command == "list":
