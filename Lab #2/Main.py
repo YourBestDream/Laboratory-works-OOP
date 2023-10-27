@@ -1,179 +1,222 @@
+# Import the os and time modules
 import os
 import time
-import threading # Importing the threading module
 
-# Defining a class for files
+# Define a class for files
 class File:
-    # Initializing the file object with name, extension, created and updated time
-    def __init__(self, name, extension, created, updated):
-        self.name = name
-        self.extension = extension
-        self.created = created
-        self.updated = updated
+    # Initialize the file attributes
+    def __init__(self, name, path):
+        self.name = name # The file name
+        self.path = path # The file path
+        self.ext = os.path.splitext(name)[1] # The file extension
+        self.created = os.path.getctime(path) # The file creation time
+        self.updated = os.path.getmtime(path) # The file modification time
+        self.changed = False # The file change status
 
-    # Defining a method to print general information about the file
-    def info(self):
-        print(f"File name: {self.name}")
-        print(f"File extension: {self.extension}")
-        print(f"Created date and time: {self.created}")
-        print(f"Updated date and time: {self.updated}")
-
-    # Defining a method to check if the file has changed since the last snapshot
-    def has_changed(self, snapshot):
-        return self.updated > snapshot
-
-# Defining a subclass for image files
-class ImageFile(File):
-    # Initializing the image file object with name, extension, created, updated and size
-    def __init__(self, name, extension, created, updated, size):
-        super().__init__(name, extension, created, updated) # Calling the superclass constructor
-        self.size = size
-
-    # Overriding the info method to print the image size as well
-    def info(self):
-        super().info() # Calling the superclass method
-        print(f"Image size: {self.size}")
-
-# Defining a subclass for text files
-class TextFile(File):
-    # Initializing the text file object with name, extension, created, updated, line count, word count and character count
-    def __init__(self, name, extension, created, updated, line_count, word_count, char_count):
-        super().__init__(name, extension, created, updated) # Calling the superclass constructor
-        self.line_count = line_count
-        self.word_count = word_count
-        self.char_count = char_count
-
-    # Overriding the info method to print the text file statistics as well
-    def info(self):
-        super().info() # Calling the superclass method
-        print(f"Line count: {self.line_count}")
-        print(f"Word count: {self.word_count}")
-        print(f"Character count: {self.char_count}")
-
-# Defining a subclass for program files
-class ProgramFile(File):
-    # Initializing the program file object with name, extension, created, updated and class count and method count
-    def __init__(self, name, extension, created, updated, class_count, method_count):
-        super().__init__(name, extension, created, updated) # Calling the superclass constructor
-        self.class_count = class_count
-        self.method_count = method_count
-
-    # Overriding the info method to print the program file statistics as well
-    def info(self):
-        super().info() # Calling the superclass method
-        print(f"Class count: {self.class_count}")
-        print(f"Method count: {self.method_count}")
-
-# Defining a class for the folder monitor
-class FolderMonitor:
-    # Initializing the folder monitor object with folder path and snapshot time
-    def __init__(self, folder_path):
-        self.folder_path = folder_path
-        self.snapshot = time.time() # Setting the initial snapshot time to the current time
-        self.files = {} # Creating an empty dictionary to store file objects
-
-    # Defining a method to create file objects from the folder contents and store them in a dictionary
-    def create_files(self):
-        self.files = {} # Creating an empty dictionary to store file objects
-        for filename in os.listdir(self.folder_path): # Iterating over each file in the folder path
-            filepath = os.path.join(self.folder_path,filename) # Joining the folder path and file name to get the full path of the file
-            name, extension = os.path.splitext(filename) # Splitting the file name and extension using os.path.splitext function
-            created = os.path.getctime(filepath) # Getting the creation time of the file using os.path.getctime function
-            updated = os.path.getmtime(filepath) # Getting the modification time of the file using os.path.getmtime function
-
-            if extension in [".png", ".jpg"]: # Checking if the file is an image file by its extension
-                size = f"{os.path.getsize(filepath)} bytes" # Getting the size of the file in bytes using os.path.getsize function 
-                file_object = ImageFile(name,
-                extension,
-                created,
-                updated,
-                size) # Creating an image file object with name,
-
-
-            elif extension == ".txt": # Checking if the file is a text file by its extension 
-                with open(filepath,"r") as f: # Opening the file in read mode 
-                    content = f.read() # Reading the content of the file 
-                    line_count = len(content.split("\n")) # Counting the number of lines by splitting the content by newline character
-                    word_count = len(content.split()) # Counting the number of words by splitting the content by whitespace characters
-                    char_count = len(content) # Counting the number of characters by taking the length of the content
-                file_object = TextFile(name, extension, created, updated, line_count, word_count, char_count) # Creating a text file object with name,
-
-            elif extension in [".py", ".java"]: # Checking if the file is a program file by its extension
-                with open(filepath,"r") as f: # Opening the file in read mode 
-                    content = f.read() # Reading the content of the file 
-                    line_count = len(content.split("\n")) # Counting the number of lines by splitting the content by newline character
-                    class_count = content.count("class") # Counting the number of classes by finding the occurrence of "class" keyword in the content
-                    method_count = content.count("def") + content.count("public") + content.count("private") # Counting the number of methods by finding the occurrence of "def", "public" and "private" keywords in the content
-                file_object = ProgramFile(name, extension, created, updated, class_count, method_count) # Creating a program file object with name,
-            else: # If the file is none of the above types, create a generic file object
-                file_object = File(name, extension, created, updated) # Creating a file object with name, extension, created and updated attributes
-
-            self.files[filename] = file_object # Storing the file object in the dictionary with filename as the key
-
-    # Defining a method to update the snapshot time to the current time
-    def commit(self):
-        self.snapshot = time.time() # Setting the snapshot time to the current time
-        print(f"Created Snapshot at: {time.ctime(self.snapshot)}") # Printing the snapshot time in a human-readable format using time.ctime function
-
-    # Defining a method to print information about a given file name
-    def info(self, filename):
-        if filename in self.files: # Checking if the filename exists in the dictionary
-            self.files[filename].info() # Calling the info method of the corresponding file object
+    # Define a method to check if the file has changed since the last snapshot
+    def check_change(self, snapshot):
+        # Update the modification time
+        self.updated = os.path.getmtime(self.path)
+        # Compare it with the snapshot time
+        if self.updated > snapshot:
+            # If it is greater, the file has changed
+            self.changed = True
         else:
-            print(f"No such file: {filename}") # Printing an error message if the filename does not exist
+            # If it is equal or smaller, the file has not changed
+            self.changed = False
 
-    # Defining a method to print the status of each file in the folder since the last snapshot
-    def status(self):
-        for filename in self.files: # Iterating over each filename in the dictionary
-            if self.files[filename].has_changed(self.snapshot): # Checking if the file has changed since the last snapshot using has_changed method
-                print(f"{filename} - Changed") # Printing that the file has changed
-            else:
-                print(f"{filename} - No Change") # Printing that the file has not changed
+    # Define a method to print general information about the file
+    def info(self):
+        # Print the file name and extension
+        print(f"File name: {self.name}")
+        print(f"File extension: {self.ext}")
+        # Print the creation and modification time in a readable format
+        print(f"Created at: {time.ctime(self.created)}")
+        print(f"Updated at: {time.ctime(self.updated)}")
 
-    # Defining a method to detect and print any changes in files (addition or deletion) since the last snapshot
-    def detect_changes(self):
-        current_files = set(os.listdir(self.folder_path)) # Getting a set of current files in the folder path using os.listdir function
-        previous_files = set(self.files.keys()) # Getting a set of previous files from the dictionary keys
-        added_files = current_files - previous_files # Getting a set of added files by subtracting previous files from current files
-        deleted_files = previous_files - current_files # Getting a set of deleted files by subtracting current files from previous files
+    # Define a method to count the lines in the file
+    def count_lines(self):
+        # Open the file in read mode
+        with open(self.path, "r") as f:
+            # Read all the lines and return their number
+            lines = f.readlines()
+            return len(lines)
 
-        for filename in added_files: # Iterating over each filename in added files set
-            print(f"{filename} - New File") # Printing that the file is new
+# Define a subclass for image files
+class ImageFile(File):
+    # Import the PIL module for image processing
+    from PIL import Image
 
-        for filename in deleted_files: # Iterating over each filename in deleted files set
-            print(f"{filename} - Deleted") # Printing that the file is deleted
+    # Initialize the image file attributes by inheriting from the parent class
+    def __init__(self, name, path):
+        super().__init__(name, path)
+        # Open the image and get its size
+        self.image = Image.open(path)
+        self.size = self.image.size
 
-        if added_files or deleted_files: # Checking if there are any changes in files 
-            self.status() # Calling status method to print status of each file 
-            self.commit() # Calling commit method to update snapshot time 
+    # Override the info method to include the image size
+    def info(self):
+        # Call the parent method first
+        super().info()
+        # Print the image size in pixels
+        print(f"Image size: {self.size[0]}x{self.size[1]}")
 
-    # Defining a method to run a scheduled detection program every 5 seconds and print any changes to the console
-    def run_scheduler(self):
-        while True: # Creating an infinite loop 
-            self.create_files() # Calling create_files method to update the dictionary with current files 
-            self.detect_changes() # Calling detect_changes method to print any changes in files 
-            time.sleep(5) # Pausing the execution for 5 seconds using time.sleep function
+# Define a subclass for text files
+class TextFile(File):
+    # Initialize the text file attributes by inheriting from the parent class
+    def __init__(self, name, path):
+        super().__init__(name, path)
 
-# Creating a folder monitor object with a hardcoded folder path (can be changed as per requirement)
-folder_monitor = FolderMonitor("E:\programs\OOP Labs\Laboratory-works-OOP\control")
-folder_monitor.create_files() # Creating file objects from the folder contents
-folder_monitor.status() # Printing the status of each file
+    # Override the info method to include the word and character count
+    def info(self):
+        # Call the parent method first
+        super().info()
+        # Open the file in read mode
+        with open(self.path, "r") as f:
+            # Read all the text and split it into words
+            text = f.read()
+            words = text.split()
+            # Count the number of words and characters
+            word_count = len(words)
+            char_count = len(text)
+            # Print the word and character count
+            print(f"Word count: {word_count}")
+            print(f"Character count: {char_count}")
 
-# Creating a thread object for running scheduler as a separate thread
-scheduler_thread = threading.Thread(target=folder_monitor.run_scheduler) # Passing the run_scheduler method of the folder_monitor object as the target argument of the Thread constructor
-scheduler_thread.start() # Starting the thread by calling the start method of the thread object
+# Define a subclass for program files
+class ProgramFile(File):
+    # Initialize the program file attributes by inheriting from the parent class
+    def __init__(self, name, path):
+        super().__init__(name, path)
+
+    # Override the info method to include the class and method count
+    def info(self):
+        # Call the parent method first
+        super().info()
+        # Open the file in read mode
+        with open(self.path, "r") as f:
+            # Read all the lines and initialize the counters
+            lines = f.readlines()
+            class_count = 0
+            method_count = 0
+            # Loop through each line and check for keywords
+            for line in lines:
+                line = line.strip() # Remove leading and trailing spaces
+                if line.startswith("class"): # If it starts with class, increment class count
+                    class_count += 1 
+                elif line.startswith("def"): # If it starts with def, increment method count 
+                    method_count += 1 
+            # Print the class and method count 
+            print(f"Class count: {class_count}")
+            print(f"Method count: {method_count}")
+
+# Define a function to create a file object based on its extension 
+def create_file(name, path):
+    ext = os.path.splitext(name)[1] # Get the file extension 
+    if ext in [".png", ".jpg"]: # If it is an image file, create an ImageFile object
+        return ImageFile(name, path)
+    elif ext == ".txt": # If it is a text file, create a TextFile object
+        return TextFile(name, path)
+    elif ext in [".py", ".java"]: # If it is a program file, create a ProgramFile object
+        return ProgramFile(name, path)
+    else: # Otherwise, create a generic File object
+        return File(name, path)
+
+# Define a function to print the status of the files 
+def print_status(files, snapshot):
+    # Loop through each file in the dictionary
+    for name, file in files.items():
+        # Check if the file has changed since the last snapshot
+        file.check_change(snapshot)
+        # Print the file name and change status
+        if file.changed:
+            print(f"{name} - Changed")
+        else:
+            print(f"{name} - No Change")
+
+# Define a function to schedule the status check every 5 seconds 
+def schedule_status(files, snapshot):
+    # Import the threading module 
+    import threading
+    # Create a timer object that calls the print_status function after 5 seconds 
+    timer = threading.Timer(5.0, print_status, args=[files, snapshot])
+    # Start the timer 
+    timer.start()
+    # Return the timer object 
+    return timer
+
+# Define the folder path (hardcoded)
+folder = "E:\programs\OOP Labs\Laboratory-works-OOP\control"
+
+# Get the list of files in the folder 
+files = os.listdir(folder)
+
+# Create a dictionary to store the file objects 
+file_dict = {}
+
+# Loop through each file name in the list 
+for file in files:
+    # Get the full path of the file 
+    path = os.path.join(folder, file)
+    # Create a file object based on its extension and add it to the dictionary 
+    file_dict[file] = create_file(file, path)
+
+# Initialize the snapshot time as the current time 
+snapshot = time.time()
+
+# Print a welcome message and instructions 
+print("Welcome to the file change detection program.")
+print("The folder being monitored is:", folder)
+print("The available actions are:")
+print("commit - Update the snapshot time to the current time.")
+print("info <filename> - Print general information about the file.")
+print("status - Show the change status of each file since the last snapshot.")
+print("exit - Exit the program.")
+
+# Start the scheduler for status check 
+scheduler = schedule_status(file_dict, snapshot)
+
+# Create a loop for user input 
 while True:
-    command = input("> ")
-    if command == "list":
-        folder_monitor.create_files()
-    elif command == "status":
-        folder_monitor.status()
-    elif command.startswith("info "):
-        _, filename = command.split(" ", 1)
-        folder_monitor.info(filename)
-    elif command == "snapshot":
-        folder_monitor.commit()
-    elif command == "exit":
-        break  # Exit the loop to terminate the program
+    # Prompt the user for an action 
+    action = input("Enter an action: ")
+    # Split the action into words 
+    words = action.split()
+    # Check if the first word is a valid action 
+    if words[0] == "commit":
+        # Update the snapshot time to the current time 
+        snapshot = time.time()
+        # Print a confirmation message 
+        print(f"Created Snapshot at: {time.ctime(snapshot)}")
+        # Restart the scheduler with the new snapshot time 
+        scheduler.cancel()
+        scheduler = schedule_status(file_dict, snapshot)
+    elif words[0] == "info":
+        # Check if there is a second word as filename 
+        if len(words) > 1:
+            # Get the filename from the second word 
+            filename = words[1]
+            # Check if the filename is in the dictionary 
+            if filename in file_dict:
+                # Get the file object from the dictionary 
+                file = file_dict[filename]
+                # Print general information about the file 
+                file.info()
+            else:
+                # Print an error message 
+                print(f"{filename} does not exist in {folder}")
+        else:
+            # Print an error message 
+            print("Please enter a filename after info.")
+    elif words[0] == "status":
+        # Print the status of each file since the last snapshot
+        print_status(file_dict, snapshot)
+    elif words[0] == "exit":
+        # Exit the program loop and cancel the scheduler
+        break
     else:
-        print("Invalid command. Available commands: list, status, info <filename>, snapshot, exit")
+        # Print an error message
+        print("Invalid action. Please try again.")
+
+# Print a goodbye message
+print("Thank you for using the program. Goodbye.")
