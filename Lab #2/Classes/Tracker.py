@@ -1,180 +1,140 @@
-import hashlib
 import os
-import struct
-import time
+import datetime
 
+class FileSnapshot:
+    def __init__(self, filename, extension):
+        self.filename = filename
+        self.extension = extension
+        self.created_time = datetime.datetime.now()
+        self.updated_time = self.created_time
 
-class File:
-    def __init__(self, name, created, updated):
-        self.name = name
-        self.created = created
-        self.updated = updated
-        self.hash = self.get_hash()
-        self.changed = False
+    def update_snapshot(self):
+        self.updated_time = datetime.datetime.now()
 
-    def info(self):
-        return f"Name: {self.name}, Created: {self.created}, Updated: {self.updated}, Hash: {self.hash}, Changed: {self.changed}"
+class TextFileSnapshot(FileSnapshot):
+    def __init__(self, filename):
+        super().__init__(filename, "txt")
+        self.line_count = 0
+        self.word_count = 0
+        self.character_count = 0
 
-    def get_hash(self):
-        return hashlib.md5(self.name.encode() + str(self.created).encode() + str(self.updated).encode()).hexdigest()
+class ImageFileSnapshot(FileSnapshot):
+    def __init__(self, filename):
+        super().__init__(filename, "png")
+        self.image_size = (0, 0)
 
+class ProgramFileSnapshot(FileSnapshot):
+    def __init__(self, filename):
+        super().__init__(filename, "py")
+        self.line_count = 0
+        self.class_count = 0
+        self.method_count = 0
 
-class TextFile(File):
-    def __init__(self, name, created, updated, lines, folder_path):
-        super().__init__(name, created, updated)
-        self.lines = lines
-        self.word_count = len([word for line in lines for word in line.split()])
-        self.char_count = sum(len(line) for line in lines)
-        self.folder_path = folder_path
-
-    def info(self):
-        return f"{super().info()}, Lines: {len(self.lines)}, Words: {self.word_count}, Characters: {self.char_count}"
-
-    def get_pretty_extension(self):
-        return "txt"
-
-    def get_path(self):
-        return os.path.join(self.folder_path, self.name)
-
-    def update(self):
-        current_updated = os.path.getmtime(self.get_path())
-        if current_updated > self.updated:
-            self.updated = current_updated
-            self.changed = True
-        else:
-            self.changed = False
-
-    def get_selection(self, start_line, end_line):
-        selection = ""
-        for i in range(start_line, end_line + 1):
-            selection += self.lines[i]
-        return selection
-
-
-class ImageFile(File):
-    def __init__(self, name, created, updated, size):
-        super().__init__(name, created, updated)
-        self.size = size
-
-    def info(self):
-        return f"{super().info()}, Size: {self.size[0]}x{self.size[1]}"
-
-    def get_pretty_extension(self):
-        return "img"
-
-
-class ProgramFile(TextFile):
-    def __init__(self, name, created, updated, lines, folder_path):
-        super().__init__(name, created, updated, lines, folder_path)
-
-    def get_pretty_extension(self):
-        return "code"
-
-
-class FolderSnapshot:
+class FileMonitor:
     def __init__(self, folder_path):
         self.folder_path = folder_path
-        self.files = self.get_files()
-        self.snapshot_time = time.time()  # Initialize snapshot_time to current time
-    
-    def get_files(self):
-        files = []
-        for root, _, filenames in os.walk(self.folder_path):
-            for filename in filenames:
-                filepath = os.path.join(root, filename)
-                if os.path.exists(filepath):
-                    created = os.path.getctime(filepath)
-                    updated = os.path.getmtime(filepath)
-                    with open(filepath, "r") as f:
-                        lines = f.readlines()
-                    if filename.endswith(".txt"):
-                        file = TextFile(filename, created, updated, lines, self.folder_path)
-                    elif filename.endswith(".png") or filename.endswith(".jpg"):
-                        size = (0, 0)
-                        with open(filepath, "rb") as f:
-                            data = f.read(24)
-                            if data.startswith(b'\x89PNG\r\n\x1a\n'):
-                                size = struct.unpack('>ii', data[16:24])
-                            elif data.startswith(b'\xff\xd8'):
-                                f.seek(0)
-                                f.read(2)
-                                b = f.read(1)
-                                while b and ord(b) != 0xDA:
-                                    while ord(b) != 0xFF:
-                                        b = f.read(1)
-                                    while ord(b) == 0xFF:
-                                        b = f.read(1)
-                                    if 0xC0 <= ord(b) <= 0xC3:
-                                        f.read(3)
-                                        h, w = struct.unpack('>HH', f.read(4))
-                                        size = (w, h)
-                                        break
-                                    else:
-                                        f.read(int.from_bytes(f.read(2), byteorder='big') - 2)
-                                    b = f.read(1)
-                        file = ImageFile(filename, created, updated, size)
-                    elif filename.endswith(".py") or filename.endswith(".java"):
-                        file = ProgramFile(filename, created, updated, lines, self.folder_path)
-                    else:
-                        file = File(filename, created, updated)
-                    if file not in files:
-                        files.append(file)
-                        print(f"{file.name} - Created")
-                else:
-                    print(f"{filename} - Deleted")
-        return files
+        self.file_snapshots = {}
+        self.snapshot_time = None
+
+    def commit(self):
+        self.snapshot_time = datetime.datetime.now()
+
+        for filename in os.listdir(self.folder_path):
+            if filename.endswith(".py"):
+                with open(os.path.join(self.folder_path, filename), "r") as file:
+                    lines = file.readlines()
+                    snapshot = FileSnapshot(filename, "py")  # Create a FileSnapshot instance
+                    snapshot.updated_time = datetime.datetime.now()
+                    snapshot.line_count = len(lines)
+                    snapshot.class_count = sum(1 for line in lines if "class" in line)
+                    snapshot.method_count = sum(1 for line in lines if "def" in line)
+                    self.file_snapshots[filename] = snapshot
 
     def info(self, filename):
-        for file in self.files:
-            if file.name == filename:
-                print(file.info())
-                return
-        print(f"File {filename} not found.")
+        if filename in self.file_snapshots:
+            file_snapshot = self.file_snapshots[filename]
+            print(f"{file_snapshot.filename}.{file_snapshot.extension}")
+            if file_snapshot.extension == "txt":
+                print(f"Line Count: {file_snapshot.line_count}")
+                print(f"Word Count: {file_snapshot.word_count}")
+                print(f"Character Count: {file_snapshot.character_count}")
+            elif file_snapshot.extension == "png":
+                print(f"Image Size: {file_snapshot.image_size[0]}x{file_snapshot.image_size[1]}")
+            elif file_snapshot.extension == "py":
+                print(f"Line Count: {file_snapshot.line_count}")
+                print(f"Class Count: {file_snapshot.class_count}")
+                print(f"Method Count: {file_snapshot.method_count}")
+            print(f"Created at: {file_snapshot.created_time}")
+            print(f"Last Updated at: {file_snapshot.updated_time}")
+        else:
+            print(f"File not found: {filename}")
 
     def status(self):
-        for file in self.files:
-            if isinstance(file, TextFile):
-                if os.path.exists(file.get_path()):
-                    file.update()
-                    if file.changed:
-                        print(f"{file.name} - Changed")
-                    else:
-                        print(f"{file.name} - No Change")
+        if self.snapshot_time is None:
+            print("Snapshot not taken. Please commit a snapshot first.")
+        else:
+            for filename, file_snapshot in self.file_snapshots.items():
+                status = "No Change" if file_snapshot.updated_time is not None and file_snapshot.updated_time <= self.snapshot_time else "Changed"
+                print(f"{filename}: {status}")
+
+    def update_snapshots(self):
+        current_files = os.listdir(self.folder_path)
+        for filename in current_files:
+            if filename not in self.file_snapshots:
+                file_extension = filename.split('.')[-1]
+                if file_extension == "txt":
+                    self.file_snapshots[filename] = TextFileSnapshot(filename)
+                elif file_extension == "png":
+                    self.file_snapshots[filename] = ImageFileSnapshot(filename)
+                elif file_extension == "py":
+                    self.file_snapshots[filename] = ProgramFileSnapshot(filename)
                 else:
-                    print(f"{file.name} - Deleted")
+                    self.file_snapshots[filename] = FileSnapshot(filename, file_extension)
+
+            if filename.endswith(".txt"):
+                with open(os.path.join(self.folder_path, filename), "r") as file:
+                    self.file_snapshots[filename].line_count = len(file.readlines())
+                    file.seek(0)
+                    self.file_snapshots[filename].word_count = len(file.read().split())
+                    file.seek(0)
+                    self.file_snapshots[filename].character_count = len(file.read())
+
+            if filename.endswith(".png"):
+                image_path = os.path.join(self.folder_path, filename)
+                image_size = os.path.getsize(image_path)
+                self.file_snapshots[filename].image_size = (image_size, image_size)
+
+            if filename.endswith(".py"):
+                with open(os.path.join(self.folder_path, filename), "r") as file:
+                    lines = file.readlines()
+                    self.file_snapshots[filename].line_count = len(lines)
+                    self.file_snapshots[filename].class_count = sum(1 for line in lines if "class" in line)
+                    self.file_snapshots[filename].method_count = sum(1 for line in lines if "def" in line)
+
+class Main:
+    def __init__(self, path):
+        self.path = path
+
+    def run(self):
+        file_monitor = FileMonitor(self.path)
+
+        while True:
+            command = input("Enter a command (commit/info <filename>/status/exit): ").split()
+
+            if command[0] == "commit":
+                file_monitor.commit()
+                print("Snapshot updated.")
+            elif command[0] == "info":
+                if len(command) == 2:
+                    file_monitor.info(command[1])
+            elif command[0] == "status":
+                file_monitor.update_snapshots()
+                file_monitor.status()
+            elif command[0] == "exit":
+                break
             else:
-                print(f"{file.name} - No Change")
-
-    def get_selection(self, filename, start_line, end_line):
-        for file in self.files:
-            if isinstance(file, TextFile) and file.name == filename:
-                return file.get_selection(start_line, end_line)
-        return ""
-
+                print("Invalid command. Please try again.")
 
 if __name__ == "__main__":
-    folder_path = "E:\programs\OOP Labs\Laboratory-works-OOP\control"
-    folder_snapshot = FolderSnapshot(folder_path)
-    
-    while True:
-        command = input("Enter a command (commit, info <filename>, status, selection <filename> <start_line> <end_line>): ")
-        if command == "commit":
-            folder_snapshot.snapshot_time = time.time()
-            print("Snapshot updated.")
-        elif command.startswith("info "):
-            filename = command.split()[1]
-            folder_snapshot.info(filename)
-        elif command == "status":
-            folder_snapshot.status()
-        elif command.startswith("selection "):
-            args = command.split()
-            if len(args) == 4:
-                filename = args[1]
-                start_line = int(args[2])
-                end_line = int(args[3])
-                selection = folder_snapshot.get_selection(filename, start_line, end_line)
-                print(selection)
-            else:
-                print("Invalid command.")
-        else:
-            print("Invalid command.")
+    main = Main("E:\programs\OOP Labs\Laboratory-works-OOP\control")
+    main.run()
