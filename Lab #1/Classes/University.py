@@ -150,12 +150,6 @@ class University:
                 print(f"\nStudent '{student.firstName} {student.lastName}' does not belong to faculty '{faculty.name}'.")
                 self.logger.log(f"Student '{student.firstName} {student.lastName} {student.email} ID = {student.idnum} {student.enrollmentDate} {student.dateOfBirth}' does not belong to faculty '{faculty.name}'.")
 
-    # def existing_student(self, stundent):
-    #     for student in self.students:
-    #         if student.email == email:
-    #             return True
-    #     return False
-
 
     def find_student_by_email(self, email):
         for student in self.students:
@@ -168,7 +162,7 @@ class University:
         for faculty in self.faculties:
             if faculty.abbreviation == abbreviation:
                 return faculty
-        # print(f"\nFaculty with abbreviation '{abbreviation}' not found.")
+        print(f"\nFaculty with abbreviation '{abbreviation}' not found.")
         return None
 
     def find_all_students(self):
