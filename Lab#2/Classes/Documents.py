@@ -33,8 +33,7 @@ class Document:
 class ImageDocument(Document):
     def info(self):
         base_info = super().info()
-        # Here we're just providing a placeholder dimension as we aren't actually reading the image
-        base_info["Dimensions"] = "Placeholder"
+        base_info["Dimensions"] = ""
         return base_info
 
 class TextDocument(Document):

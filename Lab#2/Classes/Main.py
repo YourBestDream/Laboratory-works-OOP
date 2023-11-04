@@ -1,12 +1,15 @@
 from .FolderMonitor import FolderMonitor
 
 class Main:
-    def __init__(self,path):
+    from .FolderMonitor import FolderMonitor
+
+class Main:
+    def __init__(self, path):
         self.path = path
+        self.monitor = FolderMonitor(self.path)
+        self.monitor.start_monitoring()  # Start the monitoring thread
 
     def run(self):
-        monitor = FolderMonitor(self.path)
-        
         print("Folder Monitoring System")
         print("Commands:")
         print("  commit - Update the snapshot to the current state.")
@@ -22,7 +25,7 @@ class Main:
                 print("Exiting Folder Monitoring System.")
                 break
             else:
-                response = monitor.execute_command(command)
+                response = self.monitor.execute_command(command)
                 if isinstance(response, dict):
                     for key, value in response.items():
                         if isinstance(value, dict):

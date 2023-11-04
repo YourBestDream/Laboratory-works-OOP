@@ -1,4 +1,6 @@
 import os
+import threading
+import time
 from datetime import datetime
 from .Documents import Document, ImageDocument, TextDocument, ProgramDocument
 
@@ -7,6 +9,7 @@ class FolderMonitor:
         self.folder_path = folder_path
         self.documents = self.initialize_documents()
         self.snapshot_time = datetime.now()
+        self.reported_changes = set()
 
     def initialize_documents(self):
         documents = {}
@@ -51,6 +54,7 @@ class FolderMonitor:
                     else:
                         doc = Document(filepath)
                     self.documents[filename] = doc
+        self.reported_changes.clear()
 
     def get_document_info(self, filename):
         if filename in self.documents:
@@ -87,3 +91,19 @@ class FolderMonitor:
             return self.get_status()
         
         return "Invalid command."
+
+    def check_for_changes(self):
+        status = self.get_status()
+        for filename, change in status.items():
+            if change != "No Changes" and filename not in self.reported_changes:
+                print(f"\n{filename}: {change}")
+                self.reported_changes.add(filename)
+
+    # Monitoring in separate thread
+    def start_monitoring(self):
+        def monitor():
+            while True:
+                self.check_for_changes()
+                time.sleep(5)
+        monitoring_thread = threading.Thread(target=monitor, daemon=True)
+        monitoring_thread.start()
