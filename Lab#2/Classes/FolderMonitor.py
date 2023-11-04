@@ -3,7 +3,7 @@ import threading
 import time
 from datetime import datetime
 from .Documents import Document, ImageDocument, TextDocument, ProgramDocument
-
+ 
 class FolderMonitor:
     def __init__(self, folder_path):
         self.folder_path = folder_path

@@ -8,7 +8,7 @@ class Main:
         self.path = path
         self.monitor = FolderMonitor(self.path)
         self.monitor.start_monitoring()  # Start the monitoring thread
-
+ 
     def run(self):
         print("Folder Monitoring System")
         print("Commands:")

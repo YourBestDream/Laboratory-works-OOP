@@ -2,7 +2,7 @@ import os
 import struct
 import hashlib
 from datetime import datetime
-
+ 
 class Document:
     def __init__(self, filepath):
         self.filepath = filepath
