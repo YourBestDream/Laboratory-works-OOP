@@ -1,4 +1,5 @@
 import os
+import struct
 import hashlib
 from datetime import datetime
 
@@ -30,10 +31,48 @@ class Document:
             "Updated": updated_time.strftime('%Y-%m-%d %H:%M:%S')
         }
 
+# Override + Polymorphidm
 class ImageDocument(Document):
+    def get_png_dimensions(self):
+        with open(self.filepath, 'rb') as img_file:
+            img_file.seek(16)
+            width, height = struct.unpack('>ii', img_file.read(8))
+            return width, height
+
+    def get_jpeg_dimensions(self):
+        with open(self.filepath, 'rb') as img_file:
+            img_file.read(2)
+            b = img_file.read(1)
+            try:
+                while b and ord(b) != 0xDA:
+                    while ord(b) != 0xFF: b = img_file.read(1)
+                    while ord(b) == 0xFF: b = img_file.read(1)
+                    if 0xC0 <= ord(b) <= 0xC3:
+                        img_file.read(3)
+                        h, w = struct.unpack('>HH', img_file.read(4))
+                        return w, h
+                    else:
+                        img_file.read(int(struct.unpack('>H', img_file.read(2))[0]) - 2)
+                    b = img_file.read(1)
+                return None
+            except struct.error:
+                return None
+
+    def get_dimensions(self):
+        if self.filepath.lower().endswith('.png'):
+            return self.get_png_dimensions()
+        elif self.filepath.lower().endswith('.jpg') or self.filepath.lower().endswith('.jpeg'):
+            return self.get_jpeg_dimensions()
+        else:
+            return None  # Placeholder for other image formats
+
     def info(self):
         base_info = super().info()
-        base_info["Dimensions"] = ""
+        dimensions = self.get_dimensions()
+        if dimensions:
+            base_info["Dimensions"] = f"{dimensions[0]}x{dimensions[1]}"
+        else:
+            base_info["Dimensions"] = "Unknown"
         return base_info
 
 class TextDocument(Document):
