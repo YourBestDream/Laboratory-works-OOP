@@ -64,11 +64,12 @@ class ImageDocument(Document):
         elif self.filepath.lower().endswith('.jpg') or self.filepath.lower().endswith('.jpeg'):
             return self.get_jpeg_dimensions()
         else:
-            return None  # Placeholder for other image formats
+            return False  # Placeholder for other image formats
 
     def info(self):
         base_info = super().info()
         dimensions = self.get_dimensions()
+        print(dimensions)
         if dimensions:
             base_info["Dimensions"] = f"{dimensions[0]}x{dimensions[1]}"
         else:
