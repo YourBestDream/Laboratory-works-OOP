@@ -31,7 +31,7 @@ class Document:
             "Updated": updated_time.strftime('%Y-%m-%d %H:%M:%S')
         }
 
-# Override + Polymorphidm
+# Override + Polymorphism
 class ImageDocument(Document):
     def get_png_dimensions(self):
         with open(self.filepath, 'rb') as img_file:
@@ -64,13 +64,13 @@ class ImageDocument(Document):
         elif self.filepath.lower().endswith('.jpg') or self.filepath.lower().endswith('.jpeg'):
             return self.get_jpeg_dimensions()
         else:
-            return False  # Placeholder for other image formats
+            return None  # Placeholder for other image formats
 
     def info(self):
         base_info = super().info()
         dimensions = self.get_dimensions()
         print(dimensions)
-        if dimensions:
+        if dimensions is not None:
             base_info["Dimensions"] = f"{dimensions[0]}x{dimensions[1]}"
         else:
             base_info["Dimensions"] = "Unknown"
