@@ -58,7 +58,10 @@ class LinkedListStack(AbstractStack):
         return self.head.data
 
     def is_empty(self):
-        return self.head is None    
+        return self.head is None
+
+    def is_full(self):
+        pass
 
 # ===========================
 # Double Stack implementation
@@ -92,4 +95,7 @@ class DoubleStack(AbstractStack):
 
     def is_empty(self, array):
         self.array = array
-        return len(self.array) == 0 
+        return len(self.array) == 0
+    
+    def is_full(self):
+        pass
