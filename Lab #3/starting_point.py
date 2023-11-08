@@ -15,4 +15,7 @@ Any questions write me in teams.
 Flocea Dominic.
 '''
 
+from Classes.Menu import Menu
 
+menu = Menu()
+menu.main()
