@@ -16,12 +16,12 @@ class ArrayStack(AbstractStack):
         self.items.append(item)
 
     def pop(self):
-        if self.is_empty:
+        if self.is_empty():
             raise IndexError("Nothing to pop")
         return self.items.pop()
     
     def peek(self):
-        if self.is_empty:
+        if self.is_empty():
             raise IndexError("Empty")
         return self.items[-1]
 
@@ -29,7 +29,7 @@ class ArrayStack(AbstractStack):
         return len(self.items) == 0
     
     def is_full(self):
-        return len(self.items) == capacity
+        return len(self.items) == self.capacity
 
 # ==========================
 # Linked list implementation
@@ -61,7 +61,12 @@ class LinkedListStack(AbstractStack):
         return self.head is None
 
     def is_full(self):
-        pass
+        count = 0
+        current = self.head
+        while current:
+            count += 1
+            current = current.next
+        return count >= self.capacity
 
 # ===========================
 # Double Stack implementation
@@ -73,29 +78,29 @@ class DoubleStack(AbstractStack):
         self.stack_out = ArrayStack()
         self.capacity = 5
 
-    def push(self,item):
-        self.stack_in.append(item)
-    
+    def push(self, item):
+        if self.is_full():
+            raise IndexError("The stack is full. Cannot push")
+        self.stack_in.push(item)
+
     def pop(self):
-        if self.is_empty(self.stack_in):
+        if self.is_empty():
             raise IndexError("Cannot pop from empty stack")
-        if self.is_empty(self.stack_out):
-            while not self.is_empty(self.stack_in):
+        if self.stack_out.is_empty():
+            while not self.stack_in.is_empty():
                 self.stack_out.push(self.stack_in.pop())
         return self.stack_out.pop()
-        
 
     def peek(self):
-        if self.is_empty(self.stack_in):
+        if self.is_empty():
             raise IndexError("Cannot pop from empty stack")
-        if self.is_empty(self.stack_out):
-            while not self.is_empty(self.stack_in):
+        if self.stack_out.is_empty():
+            while not self.stack_in.is_empty():
                 self.stack_out.push(self.stack_in.pop())
         return self.stack_out.peek()
 
-    def is_empty(self, array):
-        self.array = array
-        return len(self.array) == 0
-    
+    def is_empty(self):
+        return self.stack_in.is_empty() and self.stack_out.is_empty()
+
     def is_full(self):
-        pass
+        return self.stack_in.is_full() and self.stack_out.is_full()

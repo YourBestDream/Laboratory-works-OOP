@@ -1,93 +1,156 @@
+from Implementations.Queue_implementations import ArrayQueue
+from Implementations.Queue_implementations import LinkedListQueue
+from Implementations.Queue_implementations import CircularBufferQueue
+from Implementations.Stack_implementations import ArrayStack
+from Implementations.Stack_implementations import LinkedListStack
+from Implementations.Stack_implementations import DoubleStack
+
 class Menu:
     def __init__(self):
-        # Initialize stacks and queues with different implementations
-        self.stacks = {
-            'ArrayStack': ArrayStack(),
-            'LinkedListStack': LinkedListStack(),
-            'DoubleStack': DoubleStack()
-        }
-        self.queues = {
-            'ArrayQueue': ArrayQueue(),
-            'LinkedListQueue': LinkedListQueue(),
-            'CircularBufferQueue': CircularBufferQueue()
-        }
-        self.current_structure = None
+        self.queues = {}
+        self.stacks = {}
 
-    def main(self):
+    def run(self):
         while True:
-            self.print_menu()
-            choice = input("Enter your choice: ")
+            print("\nMenu:")
+            print("1. Create Queue")
+            print("2. Create Stack")
+            print("3. Perform Queue Operations")
+            print("4. Perform Stack Operations")
+            print("5. Exit")
+            choice = input("Enter choice: ")
 
             if choice == '1':
-                self.select_structure()
+                self.create_queue()
             elif choice == '2':
-                self.perform_push()
+                self.create_stack()
             elif choice == '3':
-                self.perform_pop()
+                self.queue_operations()
             elif choice == '4':
-                self.perform_peek()
+                self.stack_operations()
             elif choice == '5':
-                self.check_is_empty()
-            elif choice == '6':
-                self.exit_menu()
+                break
             else:
-                print("Invalid choice, please try again.")
+                print("Invalid choice. Please try again.")
 
-    def print_menu(self):
-        print("""
-        1. Select Data Structure
-        2. Push/Enqueue
-        3. Pop/Dequeue
-        4. Peek
-        5. Is Empty
-        6. Exit
-        """)
-
-    def select_structure(self):
-        choice = input("Choose a structure (Stack/Queue): ").lower()
-        if choice == 'stack':
-            self.current_structure = self.stacks[input("Select implementation (ArrayStack/LinkedListStack/DoubleStack): ")]
-        elif choice == 'queue':
-            self.current_structure = self.queues[input("Select implementation (ArrayQueue/LinkedListQueue/CircularBufferQueue): ")]
+    def create_queue(self):
+        print("Select type of Queue to create:")
+        print("1. ArrayQueue")
+        print("2. LinkedListQueue")
+        print("3. CircularBufferQueue")
+        choice = input("Enter choice: ")
+        name = input("Enter a name for your Queue: ")
+        if choice == '1':
+            self.queues[name] = ArrayQueue()
+        elif choice == '2':
+            self.queues[name] = LinkedListQueue()
+        elif choice == '3':
+            self.queues[name] = CircularBufferQueue()
         else:
             print("Invalid choice.")
 
-    def perform_push(self):
-        if isinstance(self.current_structure, AbstractStack) or isinstance(self.current_structure, AbstractQueue):
-            item = input("Enter item to push/enqueue: ")
-            if isinstance(self.current_structure, AbstractStack):
-                self.current_structure.push(item)
+    def create_stack(self):
+        print("Select type of Stack to create:")
+        print("1. ArrayStack")
+        print("2. LinkedListStack")
+        print("3. DoubleStack")
+        choice = input("Enter choice: ")
+        name = input("Enter a name for your Stack: ")
+        if choice == '1':
+            self.stacks[name] = ArrayStack()
+        elif choice == '2':
+            self.stacks[name] = LinkedListStack()
+        elif choice == '3':
+            self.stacks[name] = DoubleStack()
+        else:
+            print("Invalid choice.")
+
+    def queue_operations(self):
+        queue_name = input("Enter the name of the queue you want to operate on: ")
+        if queue_name not in self.queues:
+            print("Queue not found.")
+            return
+
+        queue = self.queues[queue_name]
+        while True:
+            print("\nQueue Operations:")
+            print("1. Enqueue")
+            print("2. Dequeue")
+            print("3. Peek")
+            print("4. Check if Empty")
+            print("5. Check if Full")
+            print("6. Return to Main Menu")
+            choice = input("Enter choice: ")
+
+            if choice == '1':
+                item = input("Enter the item to enqueue: ")
+                try:
+                    queue.enqueue(item)
+                    print(f"Enqueued {item}.")
+                except Exception as e:
+                    print(str(e))
+            elif choice == '2':
+                try:
+                    item = queue.dequeue()
+                    print(f"Dequeued: {item}")
+                except Exception as e:
+                    print(str(e))
+            elif choice == '3':
+                try:
+                    item = queue.peek()
+                    print(f"Front item: {item}")
+                except Exception as e:
+                    print(str(e))
+            elif choice == '4':
+                print("Queue is empty." if queue.is_empty() else "Queue is not empty.")
+            elif choice == '5':
+                print("Queue is full." if queue.is_full() else "Queue is not full.")
+            elif choice == '6':
+                break
             else:
-                self.current_structure.enqueue(item)
-        else:
-            print("No data structure selected or the selected structure does not support push/enqueue.")
+                print("Invalid choice. Please try again.")
 
-    def perform_pop(self):
-        if isinstance(self.current_structure, AbstractStack) or isinstance(self.current_structure, AbstractQueue):
-            try:
-                item = self.current_structure.pop() if isinstance(self.current_structure, AbstractStack) else self.current_structure.dequeue()
-                print(f"Item {item} has been removed.")
-            except IndexError as e:
-                print(e)
-        else:
-            print("No data structure selected or the selected structure does not support pop/dequeue.")
+    def stack_operations(self):
+        stack_name = input("Enter the name of the stack you want to operate on: ")
+        if stack_name not in self.stacks:
+            print("Stack not found.")
+            return
 
-    def perform_peek(self):
-        if isinstance(self.current_structure, AbstractStack) or isinstance(self.current_structure, AbstractQueue):
-            try:
-                item = self.current_structure.peek()
-                print(f"Item at the top/front: {item}")
-            except IndexError as e:
-                print(e)
-        else:
-            print("No data structure selected or the selected structure does not support peek.")
+        stack = self.stacks[stack_name]
+        while True:
+            print("\nStack Operations:")
+            print("1. Push")
+            print("2. Pop")
+            print("3. Peek")
+            print("4. Check if Empty")
+            print("5. Check if Full")
+            print("6. Return to Main Menu")
+            choice = input("Enter choice: ")
 
-    def check_is_empty(self):
-        if self.current_structure:
-            print("The structure is empty." if self.current_structure.is_empty() else "The structure is not empty.")
-        else:
-            print("No data structure selected.")
-
-    def exit_menu(self):
-        print("Exiting the menu.")
-        exit()
+            if choice == '1':
+                item = input("Enter the item to push: ")
+                try:
+                    stack.push(item)
+                    print(f"Pushed {item}.")
+                except Exception as e:
+                    print(str(e))
+            elif choice == '2':
+                try:
+                    item = stack.pop()
+                    print(f"Popped: {item}")
+                except Exception as e:
+                    print(str(e))
+            elif choice == '3':
+                try:
+                    item = stack.peek()
+                    print(f"Top item: {item}")
+                except Exception as e:
+                    print(str(e))
+            elif choice == '4':
+                print("Stack is empty." if stack.is_empty() else "Stack is not empty.")
+            elif choice == '5':
+                print("Stack is full." if stack.is_full() else "Stack is not full.")
+            elif choice == '6':
+                break
+            else:
+                print("Invalid choice. Please try again.")

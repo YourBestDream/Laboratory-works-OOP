@@ -16,3 +16,7 @@ class AbstractQueue(ABC):
     @abstractmethod
     def is_empty(self):
         pass
+
+    @abstractmethod
+    def is_full(self):
+        pass

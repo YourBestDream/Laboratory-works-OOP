@@ -14,8 +14,8 @@ Any questions write me in teams.
 
 Flocea Dominic.
 '''
-
 from Classes.Menu import Menu
 
-menu = Menu()
-menu.main()
+if __name__ == "__main__":
+    menu = Menu()
+    menu.run()
